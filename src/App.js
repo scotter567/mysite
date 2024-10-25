@@ -21,9 +21,11 @@ function App() {
         </a>
       </div>
       <div className='linkContainer'>
-        <div className='link'>
-          Link 1
-        </div>
+        <a href="/travel">
+          <div className='link'>
+            Travel Updates
+          </div>
+        </a>
         <div className='link'>
           Link 1
         </div>
