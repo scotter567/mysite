@@ -26,9 +26,11 @@ function App() {
             Travel Updates
           </div>
         </a>
-        <div className='link'>
-          Link 1
-        </div>
+        <a href="/notes">
+          <div className='link'>
+            Notes
+          </div>
+        </a>
         <div className='link'>
           Link 1
         </div>

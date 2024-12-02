@@ -42,6 +42,19 @@ body {
 	margin: 1%;
 }
 
+.navControls{
+	display: flex;
+	font-size: 12px;	
+}
+
+.week{
+	display: flex;
+	column-gap: 5px;
+}
+
+.weekHeader{
+	text-align: center;
+}
 @media only screen and (max-width: 600px) {
 	.aviContainer {
 		max-width: 200px;	
