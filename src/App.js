@@ -1,5 +1,4 @@
 import './styles.css';
-import 'leaflet/dist/leaflet.css';
 import MePNG from './icons/avi-nobg.png'
 import twitchIcon from './icons/twitch.svg'
 import twitterIcon from './icons/twitter-x.svg'

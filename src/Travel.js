@@ -1,7 +1,6 @@
-import 'leaflet/dist/leaflet.css';
 import { useState, useEffect } from 'react';
 import geoIcon from './icons/geo.svg'
-import { GoogleMap, useJsApiLoader, MarkerF, InfoWindowF } from '@react-google-maps/api'
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps'
 
 export default function Travel() {
 	function getTimeLocal(){
@@ -65,7 +64,7 @@ export default function Travel() {
 		return (
 		  <div className='weekCont'>
 		  	<div className='weekHeader'>
-		  		{month2Str[navStart[1].getMonth()]}
+		  		{month2Str[navStart[1].getMonth()] + " " +  navStart[1].getFullYear()}
 		  	</div>
 		    <div className='week'>
 			    {navStart[0].map((d, index) => (
@@ -81,7 +80,8 @@ export default function Travel() {
     { lat: 36.2048, lng: 138.2529, name: "Japan Central" },
     { lat: 35.6762, lng: 139.6503, name: "Tokyo" },
     { lat: 35.0116, lng: 135.7681, name: "Kyoto" },
-    { lat: 34.6937, lng: 135.5023, name: "Osaka" }
+    { lat: 34.6937, lng: 135.5023, name: "Osaka" },
+    { lat: 35.65941111111111, lng: 139.69624444444446, name: "Bar Bounce Shibuya"}
   ];
 
   function wrapDate(d){
@@ -93,12 +93,9 @@ export default function Travel() {
 
   const now = getTimeLocal()
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [curCenter, setCenter] = useState(locations[0]);
+  const [curCenter, setCenter] = useState(locations[4]);
   const [userSun, setSun] = useState(wrapDate(now.setDate(now.getDate() - now.getDay())))
 
-  function getTimeJP(){
-		return new Date(new Date().toLocaleString('en-US', {timeZone:'Asia/Tokyo'}))
-	}
 
 	function timeupdate(){
 		setInterval(function(){
@@ -135,20 +132,15 @@ export default function Travel() {
 	};
 
 	const markerPosition = {
-	  lat: 35.6762,
-	  lng: 139.6503 // Example marker position (Tokyo)
+	  lat: locations[4].lat,
+	  lng: locations[4].lng
 	};
-  const { isLoaded } = useJsApiLoader({
-    id: 'goog-map',
-    googleMapsApiKey: process.env.REACT_APP_MAPS_API,
-  })
 
-  const onMarkerClick = (location) => {
-    setSelectedLocation(location); // Set the selected marker details
-  	setCenter(location)
-  	//console.log(selectedLocation)
-  };
-  console.log(process.env.REACT_APP_MAPS_API)
+  // const onMarkerClick = (location) => {
+  //   setSelectedLocation(location); // Set the selected marker details
+  // 	setCenter(location)
+  // 	//console.log(selectedLocation)
+  // };
   return (
     <div id='main'>
     	<button>up</button>
@@ -168,7 +160,19 @@ export default function Travel() {
 	    		<button className='nav-button nav-right'>{"->"}</button>
   			</div>
   		</div>
-    	{isLoaded && (
+			{
+			  <APIProvider apiKey={process.env.REACT_APP_MAPS_API}>
+			    <Map
+			      style={{width: '100vw', height: '100vh'}}
+			      defaultCenter={markerPosition}
+			      defaultZoom={3}
+			      gestureHandling={'greedy'}
+			      disableDefaultUI={true}
+			    >
+			    	<Marker position={markerPosition} />
+			    </Map>
+			  </APIProvider>
+			/*    	{isLoaded && (
 		    <GoogleMap
 		      mapContainerStyle={containerStyle}
 		      center={curCenter}
@@ -193,7 +197,7 @@ export default function Travel() {
 	            </InfoWindowF>
            )}
 		    </GoogleMap>
-		  )}
+		  )}*/}
     </div>
   );
 }
