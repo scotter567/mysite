@@ -165,7 +165,7 @@ export default function Travel() {
 			    <Map
 			      style={{width: '100vw', height: '100vh'}}
 			      defaultCenter={markerPosition}
-			      defaultZoom={3}
+			      defaultZoom={6}
 			      gestureHandling={'greedy'}
 			      disableDefaultUI={true}
 			    >
